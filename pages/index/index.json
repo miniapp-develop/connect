@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "parent": "../parent/index",
+    "child": "../child/index",
+    "ancestor": "../ancestor/index",
+    "descendant": "../descendant/index"
+  }
+}

@@ -1,0 +1,28 @@
+<view>
+    <view>
+        <button bind:tap="onTapShowChild1">show child 1</button>
+        <button bind:tap="onTapShowChild2">show child 2</button>
+        <parent state="{{parentActive}}">
+            <child tag="t1">child 1</child>
+            <child tag="t2">child 2</child>
+        </parent>
+        <parent state="{{parentActive}}">
+            <view>
+                <child tag="t1">child 1</child>
+                <child tag="t2">child 2</child>
+            </view>
+        </parent>
+    </view>
+    <view>
+        <button bind:tap="onTapShowChild3">show child 3</button>
+        <button bind:tap="onTapShowChild4">show child 4</button>
+        <ancestor state="{{ancestorActive}}">
+            <descendant tag="t3">child 3</descendant>
+            <descendant tag="t4">child 4</descendant>
+        </ancestor>
+        <ancestor state="{{ancestorActive}}">
+            <descendant tag="t3">child 3</descendant>
+            <descendant tag="t4">child 4</descendant>
+        </ancestor>
+    </view>
+</view>
