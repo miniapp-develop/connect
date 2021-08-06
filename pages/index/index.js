@@ -3,9 +3,7 @@ Page({
         parentActive: {
             active: 't1'
         },
-        ancestorActive: {
-            active: 't3'
-        }
+        ancestorActive: 't3'
     },
     onLoad() {
 

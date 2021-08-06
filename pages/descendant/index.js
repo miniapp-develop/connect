@@ -13,10 +13,10 @@ descendant({
         }
     },
     methods: {
-        onRelativeStateChanged({active}) {
-            console.log('descendant onRelativeStateChanged', active);
+        onRelativeStateChanged(state) {
+            console.log('descendant onRelativeStateChanged', state);
             this.setData({
-                show: active === this.data.tag
+                show: state.active === this.data.tag
             });
         }
     }

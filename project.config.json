@@ -29,7 +29,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.6.1",
+  "libVersion": "2.6.5",
   "appid": "wx132bb522ad967270",
   "projectname": "connect",
   "debugOptions": {

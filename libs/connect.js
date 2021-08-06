@@ -35,6 +35,7 @@ function connect(high, low) {
         properties: {
             [HIGH_STATE]: {
                 type: Object,
+                optionalTypes: [String],
                 value: {}
             }
         },
@@ -68,7 +69,7 @@ function connect(high, low) {
                 return null;
             },
             onRelativeStateChanged(state) {
-                console.log('default onRelativeStateChanged()');
+                console.log('default onRelativeStateChanged', state);
             }
         }
     });
