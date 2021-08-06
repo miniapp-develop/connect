@@ -48,12 +48,12 @@ function connect(high, low) {
                 return this.getRelationNodes(lowKey);
             },
             getRelativeState() {
-                return this.data.state;
+                return this.data[HIGH_STATE];
             },
-            onStateChanged(newState, oldState) {
+            onStateChanged(newState) {
                 const children = this.getRelative();
                 for (const child of children) {
-                    child.onRelativeChanged(newState);
+                    child.onRelativeStateChanged(newState);
                 }
             }
         }
@@ -67,8 +67,8 @@ function connect(high, low) {
             getRelativeState() {
                 return null;
             },
-            onRelativeChanged() {
-                console.log('default onRelativeChanged()');
+            onRelativeStateChanged(state) {
+                console.log('default onRelativeStateChanged()');
             }
         }
     });
@@ -80,7 +80,7 @@ function connect(high, low) {
                 type: low,
                 target: lowBehavior,
                 linked(child) {
-                    child.onRelativeChanged(this.data.state);
+                    child.onRelativeStateChanged(this.getRelativeState());
                 }
             }
         }

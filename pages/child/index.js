@@ -13,8 +13,8 @@ child({
         }
     },
     methods: {
-        onRelativeChanged({active}) {
-            console.log('child onRelativeChanged', active);
+        onRelativeStateChanged({active}) {
+            console.log('child onRelativeStateChanged', active);
             this.setData({
                 show: active === this.data.tag
             });
