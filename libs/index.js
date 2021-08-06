@@ -1,5 +1,5 @@
-import {connectAncestorDescendant, connectParentChildren, preset,} from './connect';
-import {UiComponent} from './helper';
+import {connectAncestorDescendant, connectParentChildren} from './connect';
+import {preset, UiComponent} from './helper';
 
 export {
     preset,

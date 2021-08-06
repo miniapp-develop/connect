@@ -18,6 +18,9 @@ child({
             this.setData({
                 show: active === this.data.tag
             });
+        },
+        onTapHide(e) {
+            this.getRelative().notifyStateChanged('active', 't1');
         }
     }
 }, _Component);

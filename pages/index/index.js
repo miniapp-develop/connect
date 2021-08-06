@@ -24,16 +24,12 @@ Page({
     },
     onTapShowChild3(e) {
         this.setData({
-            ancestorActive: {
-                active: 't3'
-            }
+            ancestorActive: 't3'
         });
     },
     onTapShowChild4(e) {
         this.setData({
-            ancestorActive: {
-                active: 't4'
-            }
+            ancestorActive: 't4'
         });
     }
 });

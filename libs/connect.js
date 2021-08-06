@@ -1,47 +1,21 @@
-function _array(val) {
-    return val || [];
-}
+import {preset} from "./helper";
 
-function _object(val) {
-    return val || {};
-}
-
-function _concat(a, b) {
-    return [].concat(_array(a)).concat(_array(b))
-}
-
-function _assign(a, b) {
-    return Object.assign({}, _object(a), _object(b));
-}
-
-function preset(extra) {
-    return function (options = {}, factory) {
-        options.externalClasses = _concat(extra.externalClasses, options.externalClasses);
-        options.behaviors = _concat(extra.behaviors, options.behaviors);
-        options.options = _assign(_object(extra.options), _object(options.options));
-        options.relations = _assign(_object(extra.relations), _object(options.relations));
-        return factory(options);
-    }
-}
-
-function connect(high, low) {
+function connect(high, low, propertyName = 'state') {
     const randKey = Math.random().toString();
     const highKey = 'high$' + randKey;
     const lowKey = 'low$' + randKey;
 
-    const HIGH_STATE = 'state';
-
     const highBehavior = Behavior({
         properties: {
-            [HIGH_STATE]: {
+            [propertyName]: {
                 type: Object,
                 optionalTypes: [String],
                 value: {}
             }
         },
         observers: {
-            [HIGH_STATE]: function (state) {
-                this.onStateChanged(state);
+            [propertyName]: function (state) {
+                this.handleStateChanged(state);
             }
         },
         methods: {
@@ -49,13 +23,25 @@ function connect(high, low) {
                 return this.getRelationNodes(lowKey);
             },
             getRelativeState() {
-                return this.data[HIGH_STATE];
+                return this.data[propertyName];
             },
-            onStateChanged(newState) {
+            handleStateChanged(newState) {
                 const children = this.getRelative();
                 for (const child of children) {
                     child.onRelativeStateChanged(newState);
                 }
+            },
+            notifyStateChanged(key, value) {
+                if (typeof this.data.state === 'string') {
+                    throw Error('string state do not support notifyStateChanged');
+                }
+                if (!key) {
+                    throw Error('key is empty');
+                }
+                const newState = Object.assign({}, this.data.state, {[key]: value});
+                this.setData({
+                    [propertyName]: newState
+                });
             }
         }
     });

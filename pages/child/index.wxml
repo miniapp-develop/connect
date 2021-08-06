@@ -1,3 +1,4 @@
 <view wx:if="{{show}}">
+    <text class="act" bind:tap="onTapHide">hide child 2</text>
     <slot></slot>
 </view>
