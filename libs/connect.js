@@ -89,16 +89,16 @@ function connect(high, low, propertyName = 'state') {
     }
 }
 
-function connectParentChildren() {
-    const {highComponent, lowComponent} = connect('parent', 'child');
+function connectParentChildren(propertyName) {
+    const {highComponent, lowComponent} = connect('parent', 'child', propertyName);
     return {
         parent: highComponent,
         child: lowComponent
     }
 }
 
-function connectAncestorDescendant() {
-    const {highComponent, lowComponent} = connect('ancestor', 'descendant');
+function connectAncestorDescendant(propertyName) {
+    const {highComponent, lowComponent} = connect('ancestor', 'descendant', propertyName);
     return {
         ancestor: highComponent,
         descendant: lowComponent
