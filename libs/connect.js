@@ -7,7 +7,7 @@ function _object(val) {
 }
 
 function _concat(a, b) {
-    return _array(a).concat(_array(b))
+    return [].concat(_array(a)).concat(_array(b))
 }
 
 function _assign(a, b) {
