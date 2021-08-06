@@ -16,11 +16,11 @@
     <view>
         <button bind:tap="onTapShowChild3">show child 3</button>
         <button bind:tap="onTapShowChild4">show child 4</button>
-        <ancestor state="{{ancestorActive}}">
+        <ancestor custom="{{ancestorActive}}">
             <descendant tag="t3">child 3</descendant>
             <descendant tag="t4">child 4</descendant>
         </ancestor>
-        <ancestor state="{{ancestorActive}}">
+        <ancestor custom="{{ancestorActive}}">
             <descendant tag="t3">child 3</descendant>
             <descendant tag="t4">child 4</descendant>
         </ancestor>
