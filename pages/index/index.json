@@ -1,6 +1,10 @@
 {
   "usingComponents": {
-    "parent-view": "../parent/index",
-    "child-view": "../child/index"
+    "parent-view": "/pages/view-1/parent",
+    "child-view": "/pages/view-1/child",
+    "parent-view-2": "/pages/view-2/parent",
+    "child-view-2": "/pages/view-2/child",
+    "parent-view-3": "/pages/view-3/parent",
+    "child-view-3": "/pages/view-3/child"
   }
 }

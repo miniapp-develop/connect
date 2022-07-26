@@ -1,5 +1,5 @@
 import {MiniComponent} from '@mini-dev/view-support';
-import {child} from '../pc';
+import {child} from './pc';
 
 child({
     data: {

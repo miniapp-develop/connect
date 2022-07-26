@@ -9,7 +9,7 @@ function connect(master, slave, propertyName = 'miniData') {
         properties: {
             [propertyName]: {
                 type: Object,
-                optionalTypes: [String],
+                optionalTypes: [String, Number],
                 value: {}
             }
         }
