@@ -24,11 +24,3 @@ export function preset(extra) {
     }
 }
 
-export const UiComponent = preset({
-    externalClasses: ['ui-class'],
-    options: {
-        styleIsolation: 'isolated',
-        multipleSlots: true,
-        pureDataPattern: /^\$_/
-    }
-});

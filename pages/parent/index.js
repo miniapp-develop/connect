@@ -1,4 +1,4 @@
-import _Component from '../_Component';
+import DemoComponent from '../DemoComponent';
 import {parent} from '../pc';
 
-parent({}, _Component);
+parent({}, DemoComponent);

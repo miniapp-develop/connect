@@ -1,8 +1,6 @@
 {
   "usingComponents": {
-    "parent": "../parent/index",
-    "child": "../child/index",
-    "ancestor": "../ancestor/index",
-    "descendant": "../descendant/index"
+    "parent-view": "../parent/index",
+    "child-view": "../child/index"
   }
 }

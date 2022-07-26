@@ -1,26 +1,20 @@
-import _Component from '../_Component';
+import DemoComponent from '../DemoComponent';
 import {child} from '../pc';
 
 child({
-    properties: {
-        show: {
-            type: Boolean,
-            value: false
-        },
-        tag: {
-            type: String,
-            value: ''
-        }
+    data: {
+        active: false
     },
     methods: {
-        onRelativeStateChanged({active}) {
-            console.log('child onRelativeStateChanged', active);
+        onMiniChanged(newValue) {
             this.setData({
-                show: active === this.data.tag
+                childIndex: this.getMiniIndex(),
+                active: newValue === this.data.miniData
             });
         },
-        onTapHide(e) {
-            this.getRelative().notifyStateChanged('active', 't1');
+        onTapCancel(e) {
+            const parent = this.getMiniRelative();
+            parent.notifyMiniChanged(this.data.miniData === 't1' ? 't2' : 't1');
         }
     }
-}, _Component);
+}, DemoComponent);

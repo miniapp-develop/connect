@@ -1,28 +1,10 @@
 <view>
-    <view>
-        <button bind:tap="onTapShowChild1">show child 1</button>
-        <button bind:tap="onTapShowChild2">show child 2</button>
-        <parent state="{{parentActive}}">
-            <child tag="t1">child 1</child>
-            <child tag="t2">child 2</child>
-        </parent>
-        <parent state="{{parentActive}}">
-            <view>
-                <child tag="t1">child 1</child>
-                <child tag="t2">child 2</child>
-            </view>
-        </parent>
+    <view class="v-buttons">
+        <view class="v-button" bind:tap="onTapShowChild1">select child 1</view>
+        <view class="v-button" bind:tap="onTapShowChild2">select child 2</view>
     </view>
-    <view>
-        <button bind:tap="onTapShowChild3">show child 3</button>
-        <button bind:tap="onTapShowChild4">show child 4</button>
-        <ancestor custom="{{ancestorActive}}">
-            <descendant tag="t3">child 3</descendant>
-            <descendant tag="t4">child 4</descendant>
-        </ancestor>
-        <ancestor custom="{{ancestorActive}}">
-            <descendant tag="t3">child 3</descendant>
-            <descendant tag="t4">child 4</descendant>
-        </ancestor>
-    </view>
+    <parent-view mini-data="{{active}}">
+        <child-view mini-data="t1"/>
+        <child-view mini-data="t2"/>
+    </parent-view>
 </view>

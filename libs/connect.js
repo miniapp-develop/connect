@@ -1,112 +1,118 @@
 import {preset} from "./helper";
 
-function connect(high, low, propertyName = 'state') {
+function connect(master, slave, propertyName = 'miniData') {
     const randKey = Math.random().toString();
-    const highKey = 'high$' + randKey;
-    const lowKey = 'low$' + randKey;
+    const masterKey = 'master$' + randKey;
+    const slaveKey = 'slave$' + randKey;
 
-    const highBehavior = Behavior({
+    const commonBehavior = Behavior({
         properties: {
             [propertyName]: {
                 type: Object,
                 optionalTypes: [String],
                 value: {}
             }
+        }
+    });
+
+    const masterBehavior = Behavior({
+        behaviors: [commonBehavior],
+        properties: {
+            _miniCount: {
+                type: Number,
+                value: 0
+            }
         },
         observers: {
-            [propertyName]: function (state) {
-                this.handleStateChanged(state);
+            [propertyName](value) {
+                this.handleMiniChanged(value);
             }
         },
         methods: {
-            getRelative() {
-                return this.getRelationNodes(lowKey);
+            getMiniRelatives() {
+                return this.getRelationNodes(slaveKey);
             },
-            getRelativeState() {
-                return this.data[propertyName];
-            },
-            handleStateChanged(newState) {
-                const children = this.getRelative();
-                for (const child of children) {
-                    child.onRelativeStateChanged(newState);
+            handleMiniChanged(value) {
+                const slaveNodes = this.getMiniRelatives();
+                for (const slaveNode of slaveNodes) {
+                    slaveNode._onMiniChanged(value);
                 }
             },
-            notifyStateChanged(key, value) {
-                if (typeof this.data.state === 'string') {
-                    throw Error('string state do not support notifyStateChanged');
-                }
-                if (!key) {
-                    throw Error('key is empty');
-                }
-                const newState = Object.assign({}, this.data.state, {[key]: value});
+            notifyMiniChanged(value) {
                 this.setData({
-                    [propertyName]: newState
+                    [propertyName]: value
                 });
             }
         }
     });
 
-    const lowBehavior = Behavior({
+    const slaveBehavior = Behavior({
+        behaviors: [commonBehavior],
         methods: {
-            getRelative() {
-                return this.getRelationNodes(highKey)[0];
+            _onMiniChanged(value) {
+                console.log('slaveBehavior#_onMiniChanged', value);
+                this.onMiniChanged(value);
             },
-            getRelativeState() {
-                return null;
+            getMiniIndex() {
+                return this.data._miniIndex;
             },
-            onRelativeStateChanged(state) {
-                console.log('default onRelativeStateChanged', state);
+            onMiniChanged(value) {
+                console.log('slaveBehavior#onMiniChanged', value);
+            },
+            getMiniRelative() {
+                return this.getRelationNodes(masterKey)[0];
             }
         }
     });
 
-    const highComponent = preset({
-        behaviors: [highBehavior],
+    const masterComponent = preset({
+        behaviors: [masterBehavior],
         relations: {
-            [lowKey]: {
-                type: low,
-                target: lowBehavior,
+            [slaveKey]: {
+                type: slave,
+                target: slaveBehavior,
                 linked(child) {
-                    child.onRelativeStateChanged(this.getRelativeState());
+                    child.setData({
+                        _miniIndex: this.data._miniCount
+                    });
+                    this.data._miniCount++;
+                    child._onMiniChanged(this.data[propertyName]);
                 }
             }
         }
     });
 
-    const lowComponent = preset({
-        behaviors: [lowBehavior],
+    const slaveComponent = preset({
+        behaviors: [slaveBehavior],
+        data: {
+            _miniIndex: -1
+        },
         relations: {
-            [highKey]: {
-                type: high,
-                target: highBehavior
+            [masterKey]: {
+                type: master,
+                target: masterBehavior
             }
         }
     });
 
     return {
-        highComponent,
-        lowComponent
+        masterComponent,
+        slaveComponent
     }
 }
 
-function connectParentChildren(propertyName) {
-    const {highComponent, lowComponent} = connect('parent', 'child', propertyName);
+export function connectParentChildren(propertyName) {
+    const {masterComponent, slaveComponent} = connect('parent', 'child', propertyName);
     return {
-        parent: highComponent,
-        child: lowComponent
+        parent: masterComponent,
+        child: slaveComponent
     }
 }
 
-function connectAncestorDescendant(propertyName) {
-    const {highComponent, lowComponent} = connect('ancestor', 'descendant', propertyName);
+export function connectAncestorDescendant(propertyName) {
+    const {masterComponent, slaveComponent} = connect('ancestor', 'descendant', propertyName);
     return {
-        ancestor: highComponent,
-        descendant: lowComponent
+        ancestor: masterComponent,
+        descendant: slaveComponent
     }
 }
-
-export {
-    preset,
-    connectParentChildren,
-    connectAncestorDescendant,
-};
