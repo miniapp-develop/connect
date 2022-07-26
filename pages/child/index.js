@@ -1,4 +1,4 @@
-import DemoComponent from '../DemoComponent';
+import {MiniComponent} from '@mini-dev/view-support';
 import {child} from '../pc';
 
 child({
@@ -17,4 +17,4 @@ child({
             parent.notifyMiniChanged(this.data.miniData === 't1' ? 't2' : 't1');
         }
     }
-}, DemoComponent);
+}, MiniComponent);

@@ -15,8 +15,10 @@
     "url": "https://github.com/miniapp-develop/connect"
   },
   "homepage": "https://github.com/miniapp-develop/connect",
-  "devDependencies": {
+  "dependencies": {
+    "@mini-dev/view-support": "0.0.1"
   },
+  "devDependencies": {},
   "keywords": [
     "miniapp"
   ],

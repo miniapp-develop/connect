@@ -1,4 +1,4 @@
-import {preset} from "./helper";
+import {createPresetComponent} from "@mini-dev/view-support";
 
 function connect(master, slave, propertyName = 'miniData') {
     const randKey = Math.random().toString();
@@ -65,7 +65,7 @@ function connect(master, slave, propertyName = 'miniData') {
         }
     });
 
-    const masterComponent = preset({
+    const masterComponent = createPresetComponent({
         behaviors: [masterBehavior],
         relations: {
             [slaveKey]: {
@@ -82,7 +82,7 @@ function connect(master, slave, propertyName = 'miniData') {
         }
     });
 
-    const slaveComponent = preset({
+    const slaveComponent = createPresetComponent({
         behaviors: [slaveBehavior],
         data: {
             _miniIndex: -1
