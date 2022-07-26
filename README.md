@@ -1,38 +1,37 @@
 # miniapp connect
 
-a helper to connect miniapp custom components.
+一个辅助管理小程序组件关系（parent/child, ancestor/descendant）的工具。
 
-## install
+## Usage
+
+1、安装
 
     npm install @mini/connect
 
-## demo
+2、创建一个关系
 
 1. create a connector
 
 ```javascript
-
-import {connectParentChildren} from '../libs/index';
+import {connectParentChildren} from '@mini/connect';
 
 export const {parent, child} = connectParentChildren();
 
-
 ```
 
-create a parent:
+2、配置关系节点
 
-```javascript
-import {parent} from '../pc';
-
-parent({}, Component);
-
-```
-create a child:
-
+父节点(parent.wxml, parent.js)
 
 ```javascript
 
-import {child} from '../pc';
+parent({});
+
+```
+
+子节点(child.wxml, child.js)
+
+```javascript
 
 child({
     properties: {
@@ -46,36 +45,22 @@ child({
         }
     },
     methods: {
-        onRelativeStateChanged({active}) {
+        onMiniChanged({active}) {
             console.log('child onRelativeStateChanged', active);
             this.setData({
                 show: active === this.data.tag
             });
         }
     }
-}, Component);
-
+});
 
 ```
 
-use in page
-
+3、正常使用组件
 ```html
-
-<view>
-    <view>
-        <button bind:tap="onTapShowChild1">show child 1</button>
-        <button bind:tap="onTapShowChild2">show child 2</button>
-        <parent state="{{parentActive}}">
-            <child tag="t1">child 1</child>
-            <child tag="t2">child 2</child>
-        </parent>
-        <parent state="{{parentActive}}">
-            <view>
-                <child tag="t1">child 1</child>
-                <child tag="t2">child 2</child>
-            </view>
-        </parent>
-    </view>
-</view>
+<parent mini-data="{{active}}">
+    <child mini-data="t1" />
+    <child mini-data="t2" />
+</parent>
 ```
+也可以直接导入查看 demo
