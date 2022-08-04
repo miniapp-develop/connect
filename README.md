@@ -1,3 +1,7 @@
+# 废弃
+
+功能已经合并到 [view-support](https://github.com/miniapp-develop/view-support)
+
 # miniapp connect
 
 一个辅助管理小程序组件关系（parent/child, ancestor/descendant）的工具。
